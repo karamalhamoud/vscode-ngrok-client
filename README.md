@@ -8,7 +8,7 @@ When you run "Start Server";
 * Local url will be generated from output window that will be shown automatically.
 * Remote url will be generated from output window that will be shown automatically.
 
-##Available at:
+## Available at:
 Marketplace https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens
 
 > You must open a folder from VS Code for starting a web server.
