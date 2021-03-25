@@ -12,7 +12,8 @@ Create a web server that allow your local http server to be accessible remotely 
 
 * Local url will be generated from output window that will be shown automatically.
 * Remote url will be generated from output window that will be shown automatically.
-> You must open a folder from VS Code for starting a web server./
+> You must open a folder from VS Code for starting a web server.
+<br />
 > You must have http server installed (xampp or apache etc..). 
 
 ## Available at
