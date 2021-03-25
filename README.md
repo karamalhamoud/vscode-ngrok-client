@@ -18,7 +18,6 @@ Create a web server that allow your local http server to be accessible remotely 
 ## Available at
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=KaramAlhamoud.vscode-ngrok-client-http)
 
-<br />
 
 ## Screenshot
 
