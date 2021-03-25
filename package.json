@@ -2,7 +2,7 @@
   "name": "vscode-ngrok-client-http",
   "displayName": "Ngrok Http Client",
   "description": "Create a web server that allow your local http server to be accessible remotely on VS Code",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "build": "0",
   "icon": "images/logo.png",
   "publisher": "karamalhamoud",
