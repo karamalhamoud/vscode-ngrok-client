@@ -1,6 +1,6 @@
 # vscode-ngrok-client
 
-Create a web server that accessible from local and remote on VS Code.
+Create a web server that allow your local http server to be accessible remotely on VS Code.
 
 ## Features
 
@@ -13,12 +13,4 @@ When you run "Start Server";
 
 <br />
 
-![Preview](https://s2.gifyu.com/images/preview722aa2e6f4aa1616.gif)
-
-<br />
-
-## Issues
-Submit the [issues](https://github.com/ceyhunkeklik/vscode-ngrok-client/issues) if you find any bug or have any suggestion.
-
-## Contribution
-Fork the [repo](https://github.com/ceyhunkeklik/vscode-ngrok-client) and submit pull requests.
+![Preview](https://raw.githubusercontent.com/karamalhamoud/vscode-ngrok-client/master/demo.png)
