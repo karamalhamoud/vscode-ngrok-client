@@ -1,4 +1,4 @@
-# vscode-ngrok-client
+# vscode-ngrok-http-client
 
 Create a web server that allow your local http server to be accessible remotely on VS Code.
 

@@ -1,14 +1,14 @@
 {
-  "name": "vscode-ngrok-client",
-  "displayName": "ngrok Client",
-  "description": "Create a web server that accessible from local and remote on VS Code.",
-  "version": "1.0.7",
+  "name": "vscode-ngrok-client-http",
+  "displayName": "Ngrok Http Client",
+  "description": "Create a web server that allow your local http server to be accessible remotely on VS Code",
+  "version": "1.0.0",
   "build": "0",
   "icon": "images/logo.png",
-  "publisher": "ceyhunkeklik",
+  "publisher": "karamalhamoud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ceyhunkeklik/vscode-ngrok-client.git"
+    "url": "https://github.com/karamalhamoud/vscode-ngrok-client.git"
   },
   "engines": {
     "vscode": "^1.30.0"
@@ -27,26 +27,11 @@
     "commands": [
       {
         "command": "ngrok-client.startServer",
-        "title": "ngrok Client: Start Server"
+        "title": "Ngrok Http Client: Start Server"
       },
       {
         "command": "ngrok-client.stopServer",
-        "title": "ngrok Client: Stop Server"
-      }
-    ],
-    "configuration": [
-      {
-        "title": "ngrok Client",
-        "properties": {
-          "ngrok-client.portNumber": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "default": null,
-            "description": "The port number that will be used for starting port If you don't set any number, portfinder will found automatically."
-          }
-        }
+        "title": "Ngrok Http Client: Stop Server"
       }
     ]
   },
@@ -58,21 +43,17 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "@types/express": "4.17.6",
     "@types/mocha": "7.0.2",
     "@types/node": "14.0.5",
     "@types/request": "2.48.5",
-    "@types/serve-index": "1.7.30",
     "tslint": "6.1.2",
     "typescript": "3.9.3",
     "vscode": "1.1.37"
   },
   "dependencies": {
-    "express": "4.17.1",
     "ngrok": "3.2.7",
     "open": "7.0.4",
-    "portfinder": "1.0.26",
     "request": "2.88.2",
-    "serve-index": "1.9.1"
+    "vsce": "^1.87.0"
   }
 }
