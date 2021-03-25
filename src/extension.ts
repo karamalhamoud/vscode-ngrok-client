@@ -56,7 +56,6 @@ export function activate(context: vscode.ExtensionContext) {
       stopServer().then(() => {
         const path = vscode.workspace.rootPath;
         if (path) {
-          createLog("Finding an available port...");
 
           try {
             var localhost = path.substr(path.lastIndexOf('\\') + 1);
