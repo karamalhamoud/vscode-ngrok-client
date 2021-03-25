@@ -1,15 +1,11 @@
 import * as vscode from "vscode";
 import * as request from "request";
 import * as ngrok from "ngrok";
-import * as express from "express";
-import * as portFinder from "portfinder";
 import * as open from "open";
-import * as serveIndex from "serve-index";
 
 import constants from "./constants";
 
 let output: any;
-let httpServerInstance: any;
 let statusBarIcon: vscode.StatusBarItem;
 
 const createLog = (msg: string) => {
@@ -29,12 +25,7 @@ const stopServer = () => {
         createLog("Remote server closed.");
       }
 
-      if (httpServerInstance && httpServerInstance.close) {
-        httpServerInstance.close();
-        createLog("Local server closed.");
-      }
-
-      resolve();
+      resolve("");
     });
   });
 };
@@ -50,7 +41,7 @@ const updateStatusBarItem = () => {
 const createStatusBarItem = () => {
   statusBarIcon = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
   statusBarIcon.command = constants.commands.toggle;
-  statusBarIcon.text = `$(globe) ngrok client: start server`;
+  statusBarIcon.text = `$(globe) start ngrok server`;
   statusBarIcon.show();
 };
 
@@ -67,59 +58,31 @@ export function activate(context: vscode.ExtensionContext) {
         if (path) {
           createLog("Finding an available port...");
 
-          var startPort = (port: any) => {
-            try {
-              createLog(`Creating local web server...`);
+          try {
+            var localhost = path.substr(path.lastIndexOf('\\') + 1);
+            createLog(`local web server: http://localhost/${localhost}`);
+            createLog(`Creating remote http server via ngrok...`);
 
-              const app = express();
-              app.use(
-                express.static(path), serveIndex(path)
-              );
-              app.listen(port, () =>
-                createLog(`Local web server started successfully; Local URL: http://localhost:${port}`)
-              );
+            ngrok.connect({
+              proto: 'http',
+              addr: 'http://localhost/',
+            })
+              .then(result => {
+                createLog(`ngrok started successfully: Remote URL: ${result}/${localhost}`);
 
-              createLog(`Creating remote http server via ngrok...`);
+                (async () => {
+                  await open(result + "/" + localhost);
+                })();
 
-              ngrok
-                .connect(port)
-                .then(result => {
-                  createLog(`ngrok started successfully: Remote URL: ${result}`);
-
-                  (async () => {
-                    await open(result);
-                  })();
-
-                  statusBarIcon.text = constants.statusBarStartText;
-                })
-                .catch(error => {
-                  if (error && error.error_code && error.error_code === 103) {
-                  }
-                  createLog(`An Error Occured. Error Detail: ${JSON.stringify(error)}`);
-                });
-            } catch (error) {
-              createLog(`An Error Occured. Error Detail: ${JSON.stringify(error)}`);
-            }
-          };
-
-          var portNumber = <number>vscode.workspace.getConfiguration("ngrok-client").get("portNumber");
-
-          if (portNumber) {
-            startPort(parseInt(portNumber.toString()));
-          } else {
-            portFinder.getPort((err, port) => {
-              if (!err) {
-                if (port) {
-                  createLog(`Port was found: ${port}`);
-
-                  startPort(port);
-                } else {
-                  createLog(`An Error Occured. Error Detail: There isn't any available port for http server`);
+                statusBarIcon.text = constants.statusBarStartText;
+              })
+              .catch(error => {
+                if (error && error.error_code && error.error_code === 103) {
                 }
-              } else {
-                createLog(`An Error Occured. Error Detail: ${JSON.stringify(err)}`);
-              }
-            });
+                createLog(`An Error Occured. Error Detail: ${JSON.stringify(error)}`);
+              });
+          } catch (error) {
+            createLog(`An Error Occured. Error Detail: ${JSON.stringify(error)}`);
           }
         } else {
           vscode.window.showWarningMessage("You must open a folder to use ngrok-client.", {
@@ -131,7 +94,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(constants.commands.stopServer, function() {
+    vscode.commands.registerCommand(constants.commands.stopServer, function () {
       output.show();
       stopServer().then(() => {
         statusBarIcon.text = constants.statusBarStopText;
@@ -140,7 +103,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(constants.commands.toggle, function() {
+    vscode.commands.registerCommand(constants.commands.toggle, function () {
       updateStatusBarItem();
     })
   );
@@ -149,4 +112,5 @@ export function activate(context: vscode.ExtensionContext) {
 // this method is called when your extension is deactivated
 export function deactivate() {
   vscode.commands.executeCommand(constants.commands.stopServer);
+
 }
