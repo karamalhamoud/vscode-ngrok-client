@@ -22,4 +22,4 @@ Create a web server that allow your local http server to be accessible remotely 
 
 ## Screenshot
 
-![Preview](https://raw.githubusercontent.com/karamalhamoud/vscode-ngrok-client/master/demo.png)
+![Preview](images/demo.png)
